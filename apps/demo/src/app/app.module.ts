@@ -10,17 +10,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { D2DashboardModule } from '@iapps/d2-dashboard';
 import { NgxDhis2HttpClientModule } from '@iapps/ngx-dhis2-http-client';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { SharedModule } from './shared/shared.module';
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -45,7 +44,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     }),
     D2DashboardModule.forRoot({
       useDataStore: true,
-      dataStoreNamespace: 'eidsr-dashboard',
+      dataStoreNamespace: 'afyamsafiri-dashboard',
       rootUrl: 'dashboard',
       selectionConfig: {
         allowSelectionOnStartUp: false,

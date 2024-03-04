@@ -1,11 +1,13 @@
 {
+  "name": "d2-dashboard",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "packages/d2-dashboard/src",
   "prefix": "d2",
   "targets": {
     "build": {
       "executor": "@nrwl/angular:package",
-      "outputs": ["dist/packages/d2-dashboard"],
+      "outputs": ["{workspaceRoot}/dist/packages/d2-dashboard"],
       "options": {
         "project": "packages/d2-dashboard/ng-package.json"
       },
@@ -21,7 +23,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/d2-dashboard"],
+      "outputs": ["{workspaceRoot}/coverage/packages/d2-dashboard"],
       "options": {
         "jestConfig": "packages/d2-dashboard/jest.config.ts",
         "passWithNoTests": true

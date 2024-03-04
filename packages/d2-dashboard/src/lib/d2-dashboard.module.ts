@@ -54,7 +54,6 @@ import { EffectsModule } from '@ngrx/effects';
       useValue: {},
     },
   ],
-  entryComponents: [...d2DashboardEntryComponents],
   exports: [D2DashboardComponent],
 })
 export class D2DashboardModule {

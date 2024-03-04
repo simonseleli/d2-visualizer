@@ -1,20 +1,17 @@
 {
+  "name": "d2-visualizer",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/d2-visualizer/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/packages/d2-visualizer",
         "main": "packages/d2-visualizer/src/index.ts",
         "tsConfig": "packages/d2-visualizer/tsconfig.lib.json",
-        "assets": [
-          "packages/d2-visualizer/*.md"
-        ]
+        "assets": ["packages/d2-visualizer/*.md"]
       }
     },
     "publish": {
@@ -24,27 +21,20 @@
       },
       "dependsOn": [
         {
-          "projects": "self",
           "target": "build"
         }
       ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "packages/d2-visualizer/**/*.ts"
-        ]
+        "lintFilePatterns": ["packages/d2-visualizer/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/packages/d2-visualizer"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/packages/d2-visualizer"],
       "options": {
         "jestConfig": "packages/d2-visualizer/jest.config.ts",
         "passWithNoTests": true
