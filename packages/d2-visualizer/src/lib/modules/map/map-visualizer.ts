@@ -86,7 +86,6 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
 
       map.on('load', () => {
         this.layers.forEach((layer: MapLayer) => {
-          console.log(layer.featureCollection);
           map.addSource(layer.id, {
             type: layer.sourceType,
             data: layer.featureCollection,

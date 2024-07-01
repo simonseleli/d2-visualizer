@@ -32,7 +32,7 @@ export class MapLayer {
   features!: GeoJSON[];
   data!: any;
   mapSourceData!: any;
-  fillType!: 'fill' | 'line';
+  fillType!: 'fill' | 'line' | 'circle';
   sourceType = 'geojson';
 
   setId(id: string) {
@@ -57,7 +57,6 @@ export class MapLayer {
 
   setType(type: MapLayerType) {
     this.layer = type;
-    this.setFillType();
     return this;
   }
 
@@ -75,7 +74,11 @@ export class MapLayer {
       }
 
       default: {
-        this.fillType = 'fill';
+        const isPointGeometry = (this.features || []).some(
+          (feature) => feature.geometry.type === 'Point'
+        );
+
+        this.fillType = isPointGeometry ? 'circle' : 'fill';
         return this;
       }
     }
@@ -150,18 +153,30 @@ export class MapLayer {
         return geoJSON;
       })
       .filter((geoJSON) => geoJSON) as GeoJSON[];
+    this.setFillType();
   }
 
   get paint() {
-    return this.fillType === 'line'
-      ? {
+    switch (this.fillType) {
+      case 'line':
+      default:
+        return {
           'line-color': '#000000',
           'line-width': 1,
-        }
-      : {
+        };
+
+      case 'fill':
+        return {
           'fill-color': '#00ff00',
           'fill-opacity': 0.75,
         };
+
+      case 'circle':
+        return {
+          'circle-radius': 10,
+          'circle-color': '#007cbf',
+        };
+    }
   }
 
   get featureCollection(): { type: 'FeatureCollection'; features: GeoJSON[] } {
