@@ -13,7 +13,6 @@ import { demoGeofeatures } from './config/demo-geofeature.config';
 import { demoLegendSet } from './config/demo-legend.config';
 import { MapAnalytics } from 'packages/ngx-d2-map/src/lib/models/map-analytic.model';
 import { GeoFeature } from 'packages/ngx-d2-map/src/lib/models/map-geofeature.model';
-import { LegendSet } from 'packages/ngx-d2-map/src/lib/models/legend-set.model';
 import { d2LegendSets } from './config/d2-legend-set.config';
 import { d2GeoFeatureSnapshotConfigs } from './config/d2-geofeature-snapshot.config';
 import { GeoFeatureSnapshot } from './models/map-geofeature-snapshot.model';
@@ -22,6 +21,7 @@ import { mapDashboardItemConfigs } from './config/d2-map-dashboard-item.config';
 import { MapDashboardItem } from './models/map-dashboard-item.model';
 import { MapDashboardExtensionItem } from './models/map-dashboard-extension.model';
 import { mapDashboardExtensionItem } from './config/d2-map-dashboard-extension.config';
+import { LegendSet } from 'packages/d2-visualizer/src/lib/shared';
 
 @Component({
   selector: 'iapps-map',

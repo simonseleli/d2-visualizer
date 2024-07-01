@@ -5,7 +5,6 @@ import { CustomVisualizer } from './modules/custom/custom-visualizer';
 import { MapLayer } from './modules/map/layers/map-layer.model';
 import { TrackedEntityLayer } from './modules/map/layers/tracked-entity-layer.model';
 import { MapVisualizer } from './modules/map/map-visualizer';
-import { LegendSet } from './modules/map/models/legend-set.model';
 import { D2VisualizerMapControl } from './modules/map/models/map-control.model';
 import { MapDashboardExtensionItem } from './modules/map/models/map-dashboard-extension.model';
 import { MapDashboardItem } from './modules/map/models/map-dashboard-item.model';
@@ -15,7 +14,7 @@ import { TableConfiguration } from './modules/table/models/table-config.model';
 import { TableDashboardItem } from './modules/table/models/table-dashboard-item.model';
 import { TableUtil } from './modules/table/utils/table.util';
 import { getSelectionDimensionsFromFavorite } from './shared/helpers';
-import { Visualizer, VisualizerPlotOptions } from './shared/models';
+import { LegendSet, Visualizer, VisualizerPlotOptions } from './shared/models';
 import { VisualizationConfiguration } from './shared/models/visualization-configuration.model';
 import {
   ChartType,
@@ -412,6 +411,7 @@ export class D2Visualizer {
             new MapLayer()
               .setId(mapView.id)
               .setType(mapView.layer)
+              .setLegendSet(mapView.legendSet)
               .setDataSelections(dataSelections)
           );
         });

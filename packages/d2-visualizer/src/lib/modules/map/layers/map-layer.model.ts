@@ -1,8 +1,7 @@
-import { MapGeometryUtil } from '../utils';
-import { VisualizationData } from '../../../shared/models';
+import { GeoJSONUtil, MapGeometryUtil } from '../utils';
+import { VisualizationData, LegendSet } from '../../../shared/models';
 import {
   DigitGroupSeparator,
-  LegendSet,
   MapLayerType,
   MapRenderingStrategy,
   TitleOption,
@@ -50,7 +49,7 @@ export class MapLayer {
     return this;
   }
 
-  setSubTitleOption(subtitleOption: TitleOption) {
+  setSubtitleOption(subtitleOption: TitleOption) {
     this.subtitleOption = subtitleOption;
     return this;
   }
@@ -136,21 +135,7 @@ export class MapLayer {
     this.setMapSourceData();
     this.features = (this.geoFeatures || [])
       .map((geoFeature) => {
-        const geoJSON = new GeoJSON()
-          .setType('Feature')
-          .setGeometry(
-            new MapGeometry().setCoordinates(JSON.parse(geoFeature.co))
-          )
-          .setProperties({
-            value: 3,
-            name: (geoFeature as any)['na'],
-          });
-
-        if (!geoJSON.geometry.type || geoJSON.geometry.type === 'Invalid') {
-          return null;
-        }
-
-        return geoJSON;
+        return GeoJSONUtil.getGeoJSON(geoFeature, this.data, this.legendSet);
       })
       .filter((geoJSON) => geoJSON) as GeoJSON[];
     this.setFillType();
@@ -167,14 +152,14 @@ export class MapLayer {
 
       case 'fill':
         return {
-          'fill-color': '#00ff00',
+          'fill-color': ['get', 'color'],
           'fill-opacity': 0.75,
         };
 
       case 'circle':
         return {
           'circle-radius': 10,
-          'circle-color': '#007cbf',
+          'circle-color': ['get', 'color'],
         };
     }
   }
