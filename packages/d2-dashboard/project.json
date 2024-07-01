@@ -6,7 +6,7 @@
   "prefix": "d2",
   "targets": {
     "build": {
-      "executor": "@nrwl/angular:package",
+      "executor": "@nx/angular:ng-packagr-lite",
       "outputs": ["{workspaceRoot}/dist/packages/d2-dashboard"],
       "options": {
         "project": "packages/d2-dashboard/ng-package.json"
@@ -21,8 +21,9 @@
       },
       "defaultConfiguration": "production"
     },
+
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/packages/d2-dashboard"],
       "options": {
         "jestConfig": "packages/d2-dashboard/jest.config.ts",
@@ -30,7 +31,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "options": {
         "lintFilePatterns": [
           "packages/d2-dashboard/**/*.ts",

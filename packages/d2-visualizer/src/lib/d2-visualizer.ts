@@ -353,9 +353,12 @@ export class D2Visualizer {
    * @returns
    */
   async draw(): Promise<any> {
-    const data = !this.trackedEntityInstances
-      ? this.dataAnalytics || (await this._getData())?._data
-      : undefined;
+    const data =
+      this.visualizationType !== 'MAP'
+        ? !this.trackedEntityInstances
+          ? this.dataAnalytics || (await this._getData())?._data
+          : undefined
+        : undefined;
 
     switch (this.visualizationType) {
       case 'CHART':

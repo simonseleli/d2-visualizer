@@ -169,7 +169,7 @@ export class DashboardService {
   private _findByIdFromApi(id: string) {
     return this.httpClient
       .get(
-        `dashboards/${id}.json?fields=id,name,description,favorite,dashboardItems[id,type,x,y,height,width,shape,visualization[id],chart~rename(visualization)]`
+        `dashboards/${id}.json?fields=id,name,description,favorite,dashboardItems[id,type,x,y,height,width,shape,visualization[id],map[id],chart~rename(visualization)]`
       )
       .pipe(
         map((dashboardResponse) => new Dashboard(dashboardResponse).toObject())

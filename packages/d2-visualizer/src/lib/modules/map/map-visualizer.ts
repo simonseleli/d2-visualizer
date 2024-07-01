@@ -39,22 +39,40 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
     return this;
   }
 
-  async getData() {
+  async loadLayers() {
     this.layers = await Promise.all(
       this.layers.map(async (layer: MapLayer) => {
-        await layer.getGeoFeatures();
-        await layer.getData();
+        await layer.loadFeatures();
         return layer;
       })
     );
   }
 
+  getValidFeatures(features: any[]) {
+    return features.filter(
+      (feature) =>
+        (feature?.geometry?.coordinates || [])[1] >= -90 &&
+        (feature?.geometry?.coordinates || [])[1] <= 90
+    );
+  }
+
   async draw() {
-    await this.getData();
+    await this.loadLayers();
 
     if (this.layers?.length > 0) {
-      console.log(this.layers[0].featureCollection);
-      const bbox = turf.bbox(this.layers[0].featureCollection);
+      const isPointGeometry = (
+        this.layers[0].featureCollection?.features || []
+      ).some((feature) => feature.geometry.type === 'Point');
+
+      const featureCollection = isPointGeometry
+        ? turf.featureCollection(
+            this.getValidFeatures(
+              this.layers[0].featureCollection?.features || []
+            )
+          )
+        : this.layers[0].featureCollection;
+
+      const bbox = turf.bbox(featureCollection);
 
       const map = new mapboxgl.Map({
         container: this._id,
@@ -68,15 +86,17 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
 
       map.on('load', () => {
         this.layers.forEach((layer: MapLayer) => {
+          console.log(layer.featureCollection);
           map.addSource(layer.id, {
-            type: 'geojson',
+            type: layer.sourceType,
             data: layer.featureCollection,
           });
 
           map.addLayer({
             id: layer.id,
-            type: 'line',
+            type: layer.fillType,
             source: layer.id,
+            paint: layer.paint,
           });
         });
       });

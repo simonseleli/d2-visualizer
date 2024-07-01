@@ -1,3 +1,4 @@
+import { MapGeometryUtil } from '../utils';
 import { VisualizationData } from '../../../shared/models';
 import {
   DigitGroupSeparator,
@@ -31,6 +32,8 @@ export class MapLayer {
   features!: GeoJSON[];
   data!: any;
   mapSourceData!: any;
+  fillType!: 'fill' | 'line';
+  sourceType = 'geojson';
 
   setId(id: string) {
     this.id = id;
@@ -54,7 +57,28 @@ export class MapLayer {
 
   setType(type: MapLayerType) {
     this.layer = type;
+    this.setFillType();
     return this;
+  }
+
+  setFillType(fillType?: any) {
+    if (fillType) {
+      this.fillType = fillType;
+      return this;
+    }
+
+    switch (this.layer) {
+      case 'boundary':
+      case 'orgUnit': {
+        this.fillType = 'line';
+        return this;
+      }
+
+      default: {
+        this.fillType = 'fill';
+        return this;
+      }
+    }
   }
 
   setRenderingStrategy(renderingStrategy: MapRenderingStrategy) {
@@ -92,35 +116,52 @@ export class MapLayer {
     return this;
   }
 
-  setFeatures(features: GeoJSON[]): MapLayer {
-    this.features = features;
-    return this;
-  }
+  // setFeatures(features: GeoJSON[]): MapLayer {
+  //   this.features = features;
+  //   return this;
+  // }
 
-  async getGeoFeatures() {
+  async loadFeatures() {
     this.geoFeatures = await new MapGeoFeature()
       .setDataSelections(this.dataSelections)
       .get();
 
+    this.data = await new VisualizationData()
+      .setSelections(this.dataSelections)
+      .getAnalytics();
+
     this.setMapSourceData();
-    this.features = (this.geoFeatures || []).map((geoFeature) => {
-      return new GeoJSON()
-        .setType('Feature')
-        .setGeometry(
-          new MapGeometry()
-            .setType('Polygon')
-            .setCoordinates(JSON.parse(geoFeature.co))
-        );
-    });
-    return this.geoFeatures;
+    this.features = (this.geoFeatures || [])
+      .map((geoFeature) => {
+        const geoJSON = new GeoJSON()
+          .setType('Feature')
+          .setGeometry(
+            new MapGeometry().setCoordinates(JSON.parse(geoFeature.co))
+          )
+          .setProperties({
+            value: 3,
+            name: (geoFeature as any)['na'],
+          });
+
+        if (!geoJSON.geometry.type || geoJSON.geometry.type === 'Invalid') {
+          return null;
+        }
+
+        return geoJSON;
+      })
+      .filter((geoJSON) => geoJSON) as GeoJSON[];
   }
 
-  async getData() {
-    this.data = (
-      await new VisualizationData()
-        .setSelections(this.dataSelections)
-        .getAnalytics()
-    )?._data;
+  get paint() {
+    return this.fillType === 'line'
+      ? {
+          'line-color': '#000000',
+          'line-width': 1,
+        }
+      : {
+          'fill-color': '#00ff00',
+          'fill-opacity': 0.75,
+        };
   }
 
   get featureCollection(): { type: 'FeatureCollection'; features: GeoJSON[] } {

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { from } from 'rxjs';
 
 export class MapGeoFeature {
+  [x: string]: unknown;
   id!: string;
   code!: string;
   na!: string;

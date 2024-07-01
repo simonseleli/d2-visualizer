@@ -5,7 +5,6 @@ import { MapRoutingModule } from './map-routing.module';
 import { MapComponent } from './map.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
-import { NgxD2MapModule } from '@iapps/ngx-d2-map';
 
 @NgModule({
   declarations: [MapComponent],
@@ -13,7 +12,6 @@ import { NgxD2MapModule } from '@iapps/ngx-d2-map';
     CommonModule,
     MapRoutingModule,
     SharedModule,
-    NgxD2MapModule,
     MonacoEditorModule.forRoot(),
   ],
 })

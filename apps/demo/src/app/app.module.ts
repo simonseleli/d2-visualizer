@@ -43,7 +43,7 @@ import { SharedModule } from './shared/shared.module';
       },
     }),
     D2DashboardModule.forRoot({
-      useDataStore: true,
+      useDataStore: false,
       dataStoreNamespace: 'afyamsafiri-dashboard',
       rootUrl: 'dashboard',
       selectionConfig: {
