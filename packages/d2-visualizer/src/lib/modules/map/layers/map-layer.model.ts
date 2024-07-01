@@ -135,7 +135,12 @@ export class MapLayer {
     this.setMapSourceData();
     this.features = (this.geoFeatures || [])
       .map((geoFeature) => {
-        return GeoJSONUtil.getGeoJSON(geoFeature, this.data, this.legendSet);
+        return GeoJSONUtil.getGeoJSON(
+          geoFeature,
+          this.data,
+          this.legendSet,
+          this.layer
+        );
       })
       .filter((geoJSON) => geoJSON) as GeoJSON[];
     this.setFillType();
