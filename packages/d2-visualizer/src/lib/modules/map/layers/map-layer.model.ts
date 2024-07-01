@@ -163,7 +163,7 @@ export class MapLayer {
 
       case 'circle':
         return {
-          'circle-radius': 10,
+          'circle-radius': ['/', ['get', 'value'], 10],
           'circle-color': ['get', 'color'],
         };
     }

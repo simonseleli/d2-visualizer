@@ -396,7 +396,8 @@ export class D2Visualizer {
         //   .setShowBoundary(this.d2VisualizerMapControl?.showMapBoundary)
         //   .setShowMapSummary(this.d2VisualizerMapControl?.showMapSummary)
         //   .draw();
-        const mapVisualizer = new MapVisualizer()
+
+        this.visualizer = new MapVisualizer()
           .setId(this.id)
           .setBaseMap(this.config?.config?.basemap);
 
@@ -407,7 +408,7 @@ export class D2Visualizer {
             'dimension'
           );
 
-          mapVisualizer.addLayer(
+          (this.visualizer as MapVisualizer).addLayer(
             new MapLayer()
               .setId(mapView.id)
               .setType(mapView.layer)
@@ -416,7 +417,7 @@ export class D2Visualizer {
           );
         });
 
-        mapVisualizer.draw();
+        (this.visualizer as MapVisualizer).draw();
         return this;
       }
       case 'REPORT_TABLE':

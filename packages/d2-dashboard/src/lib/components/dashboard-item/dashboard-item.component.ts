@@ -150,6 +150,10 @@ export class DashboardItemComponent implements OnInit, OnChanges {
           ? await this._getTrackedEntityInstances()
           : undefined;
 
+        if (this.visualizer) {
+          this.visualizer.visualizer?.dispose();
+        }
+
         this.visualizer = await new D2Visualizer()
           .setId(this.visualizationConfig?.id)
           .setConfig(this.visualizationConfig)

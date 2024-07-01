@@ -4,6 +4,8 @@ import { VisualizationConfiguration } from './visualization-configuration.model'
 export interface Visualizer {
   draw: () => void;
   download: (downloadFormat: DownloadFormat) => void;
+
+  dispose: () => void;
 }
 
 export class BaseVisualizer {
@@ -80,4 +82,6 @@ export class BaseVisualizer {
   download(downloadFormat: DownloadFormat) {
     const filename = this._config?.title || 'chart-data';
   }
+
+  dispose() {}
 }

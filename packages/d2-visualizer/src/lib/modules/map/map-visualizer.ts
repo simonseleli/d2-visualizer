@@ -12,6 +12,7 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
   basemap!: BaseMap;
   layers: MapLayer[] = [];
   zoom = 5;
+  map!: any;
 
   style =
     'https://api.maptiler.com/maps/eef16200-c4cc-4285-9370-c71ca24bb42d/style.json?key=CH1cYDfxBV9ZBu1lHGqh';
@@ -74,24 +75,24 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
 
       const bbox = turf.bbox(featureCollection);
 
-      const map = new mapboxgl.Map({
+      this.map = new mapboxgl.Map({
         container: this._id,
         style: this.style,
         zoom: this.zoom,
       });
 
-      map.fitBounds(bbox, { padding: 40 });
-      map.addControl(new mapboxgl.NavigationControl());
-      map.addControl(new MapboxStyleSwitcherControl());
+      this.map.fitBounds(bbox, { padding: 40 });
+      this.map.addControl(new mapboxgl.NavigationControl());
+      this.map.addControl(new MapboxStyleSwitcherControl());
 
-      map.on('load', () => {
+      this.map.on('load', () => {
         this.layers.forEach((layer: MapLayer) => {
-          map.addSource(layer.id, {
+          this.map.addSource(layer.id, {
             type: layer.sourceType,
             data: layer.featureCollection,
           });
 
-          map.addLayer({
+          this.map.addLayer({
             id: layer.id,
             type: layer.fillType,
             source: layer.id,
@@ -115,6 +116,13 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
       //   .setShowBoundary(this.d2VisualizerMapControl?.showMapBoundary)
       //   .setShowMapSummary(this.d2VisualizerMapControl?.showMapSummary)
       //   .draw();
+    }
+  }
+
+  override dispose(): void {
+    if (this.map) {
+      this.map.remove();
+      this.map = null;
     }
   }
 }
