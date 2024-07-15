@@ -1,11 +1,11 @@
 import * as turf from '@turf/turf';
-import { flatten } from 'lodash';
+import { flatten, uniqBy } from 'lodash';
 import {
   BaseVisualizer,
   Visualizer,
 } from '../../shared/models/base-visualizer.model';
 import { MapLayer } from './layers/map-layer.model';
-import { BaseMap } from './models';
+import { BaseMap, LegendControl } from './models';
 import { MapboxStyleSwitcherControl } from 'mapbox-gl-style-switcher';
 declare let mapboxgl: any;
 
@@ -164,6 +164,24 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
               },
             });
           }
+
+          // Add legend control
+          const legendTitle = layer.legendSet?.name;
+
+          const legends = (layer.legendSet?.legends || [])
+            .map((legend) => {
+              return {
+                useBackgroundColor: true,
+                backgroundColor: legend.color,
+                label: `${legend.name} (${legend.startValue} - ${legend.endValue})`,
+              };
+            })
+            .filter((legend) => legend.label);
+
+          this.map.addControl(
+            new LegendControl(legends, legendTitle),
+            'bottom-right'
+          );
         });
       });
 
