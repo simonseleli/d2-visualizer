@@ -1,4 +1,5 @@
 import * as turf from '@turf/turf';
+import { flatten } from 'lodash';
 import {
   BaseVisualizer,
   Visualizer,
@@ -89,15 +90,80 @@ export class MapVisualizer extends BaseVisualizer implements Visualizer {
         this.layers.forEach((layer: MapLayer) => {
           this.map.addSource(layer.id, {
             type: layer.sourceType,
+            cluster: true,
+            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50),
+            clusterProperties: {
+              // Aggregate 'value' property for clusters
+              sum: ['+', ['get', 'value']],
+            },
             data: layer.featureCollection,
           });
+
+          // TODO: Refactor this code, not all layers will respond to this logic
+          const circleColors = flatten(
+            (layer.legendSet?.legends || [])
+              .sort((a, b) => a.startValue - b.startValue)
+              .map((legend, index) =>
+                index === 0 ? [legend.color] : [legend.startValue, legend.color]
+              )
+          );
+
+          if (layer.fillType !== 'line') {
+            this.map.addLayer({
+              id: 'clusters',
+              type: 'circle',
+              source: layer.id,
+              filter: ['has', 'sum'],
+              paint: {
+                'circle-color': ['step', ['get', 'sum'], ...circleColors],
+                'circle-radius': [
+                  'step',
+                  ['get', 'sum'],
+                  20,
+                  100,
+                  30,
+                  1000,
+                  40,
+                ],
+              },
+            });
+
+            this.map.addLayer({
+              id: `${layer.id}_clustered`,
+              type: 'symbol',
+              filter: ['has', 'sum'],
+              source: layer.id,
+              layout: {
+                'text-field': ['get', 'sum'],
+                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                'text-size': 12,
+              },
+            });
+          }
 
           this.map.addLayer({
             id: layer.id,
             type: layer.fillType,
+            filter: ['!', ['has', 'sum']],
             source: layer.id,
             paint: layer.paint,
+            layout: {},
           });
+
+          if (layer.fillType !== 'line') {
+            this.map.addLayer({
+              id: `${layer.id}_unclustered`,
+              type: 'symbol',
+              filter: ['!', ['has', 'sum']],
+              source: layer.id,
+              layout: {
+                'text-field': ['get', 'value'],
+                'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+                'text-size': 10,
+              },
+            });
+          }
         });
       });
 

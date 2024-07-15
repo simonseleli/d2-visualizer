@@ -161,10 +161,40 @@ export class MapLayer {
           'fill-opacity': 0.75,
         };
 
+      case 'circle': {
+        const pain = {
+          // TODO: This is for thematics
+          // 'circle-radius': ['/', ['get', 'value'], 10],
+          // 'circle-color': ['get', 'color'],
+          // TODO: This is for cluster
+          'circle-color': [
+            'step',
+            ['get', 'sum'],
+            '#51bbd6',
+            100,
+            '#f1f075',
+            1000,
+            '#f28cb1',
+          ],
+          'circle-radius': ['step', ['get', 'sum'], 20, 100, 30, 1000, 40],
+        };
+
+        return {
+          'circle-radius': ['step', ['get', 'value'], 20, 100, 30, 750, 40],
+          'circle-color': ['get', 'color'],
+        };
+      }
+    }
+  }
+
+  get layout() {
+    switch (this.fillType) {
+      case 'line':
+      default:
+        return {};
       case 'circle':
         return {
-          'circle-radius': ['/', ['get', 'value'], 10],
-          'circle-color': ['get', 'color'],
+          'text-field': '{sum}',
         };
     }
   }

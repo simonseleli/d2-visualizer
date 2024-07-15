@@ -44,7 +44,7 @@ import { SharedModule } from './shared/shared.module';
     }),
     D2DashboardModule.forRoot({
       useDataStore: false,
-      dataStoreNamespace: 'afyamsafiri-dashboard',
+      dataStoreNamespace: 'eidsr-dashboard',
       rootUrl: 'dashboard',
       selectionConfig: {
         allowSelectionOnStartUp: false,
