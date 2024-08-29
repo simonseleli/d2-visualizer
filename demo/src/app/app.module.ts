@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { SharedModule } from './shared/shared.module';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { D2Visualizer } from '@iapps/d2-visualizer';
+
 
 @NgModule({
   declarations: [AppComponent, NxWelcomeComponent],
