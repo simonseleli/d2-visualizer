@@ -95,11 +95,19 @@ export const getCascadeVisualizationPayload = (
   dataStoreConfig: DataStoreConfig
 ) => {
   if (dataStoreConfig) {
-    const targetSeries: any = getTargetSeriesData(dataStoreConfig);
-    const achievementSeries: any = getAchievementSeriesData(
-      chartObject,
-      dataStoreConfig
-    );
+    const targetSeries: any = getTargetSeriesData(dataStoreConfig); // getting target values
+    const achievementSeries: any = getAchievementSeriesData(chartObject,dataStoreConfig); // getting actual values
+
+    // Color condition based on actual vs target value
+    achievementSeries.data = achievementSeries.data.map((dataPoint: any, index: number) => {
+      const targetValue = targetSeries.data[index]?.y;
+      const actualValue = dataPoint?.y;
+
+      return {
+        ...dataPoint,
+        color: actualValue > targetValue ? 'red' : dataPoint.color || null, // if actual value is greater than target value, color will be red
+      };
+    });
 
     return {
       ...chartObject,

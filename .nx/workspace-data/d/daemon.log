@@ -1,0 +1,22 @@
+[NX Daemon Server] - 2024-08-29T05:43:00.572Z - Started listening on: /tmp/029aeffaa3dc523bd1da/d.sock
+[NX Daemon Server] - 2024-08-29T05:43:00.577Z - [WATCHER]: Subscribed to changes within: /home/simons/Downloads/updates/d2-visualizer/d2-visualizer (native)
+[NX Daemon Server] - 2024-08-29T05:43:00.583Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-29T05:43:00.586Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-29T05:43:00.595Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-29T05:43:00.603Z - [REQUEST]: Responding to the client. Shutdown initiated
+[NX Daemon Server] - 2024-08-29T05:43:00.605Z - Done responding to the client Shutdown initiated
+[NX Daemon Server] - 2024-08-29T05:43:00.605Z - Handled FORCE_SHUTDOWN. Handling time: 1. Response time: 2.
+[NX Daemon Server] - 2024-08-29T05:43:00.608Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-29T05:43:00.610Z - [WATCHER]: Stopping the watcher for /home/simons/Downloads/updates/d2-visualizer/d2-visualizer (sources)
+[NX Daemon Server] - 2024-08-29T05:43:00.610Z - [WATCHER]: Stopping the watcher for /home/simons/Downloads/updates/d2-visualizer/d2-visualizer (outputs)
+[NX Daemon Server] - 2024-08-29T05:48:36.604Z - Started listening on: /tmp/029aeffaa3dc523bd1da/d.sock
+[NX Daemon Server] - 2024-08-29T05:48:36.610Z - [WATCHER]: Subscribed to changes within: /home/simons/Downloads/updates/d2-visualizer/d2-visualizer (native)
+[NX Daemon Server] - 2024-08-29T05:48:36.619Z - Established a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-29T05:48:36.621Z - Established a connection. Number of open connections: 2
+[NX Daemon Server] - 2024-08-29T05:48:36.627Z - Closed a connection. Number of open connections: 1
+[NX Daemon Server] - 2024-08-29T05:48:36.630Z - [REQUEST]: Responding to the client. Shutdown initiated
+[NX Daemon Server] - 2024-08-29T05:48:36.631Z - Done responding to the client Shutdown initiated
+[NX Daemon Server] - 2024-08-29T05:48:36.631Z - Handled FORCE_SHUTDOWN. Handling time: 1. Response time: 1.
+[NX Daemon Server] - 2024-08-29T05:48:36.633Z - [WATCHER]: Stopping the watcher for /home/simons/Downloads/updates/d2-visualizer/d2-visualizer (sources)
+[NX Daemon Server] - 2024-08-29T05:48:36.634Z - Closed a connection. Number of open connections: 0
+[NX Daemon Server] - 2024-08-29T05:48:36.634Z - [WATCHER]: Stopping the watcher for /home/simons/Downloads/updates/d2-visualizer/d2-visualizer (outputs)

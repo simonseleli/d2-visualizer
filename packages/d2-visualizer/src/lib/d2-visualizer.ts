@@ -26,7 +26,7 @@ export class D2Visualizer {
   d2VisualizerMapControl: D2VisualizerMapControl | any;
   legendSets: LegendSet[] | any = null;
 
-  // Map Dependencies 
+  // Map Dependencies
   mapDashboardItem: MapDashboardItem | any;
   mapDashboardExtensionItem: MapDashboardExtensionItem | any;
   organisationUnitGroups: OrganisationUnitGroup[] | any;
@@ -107,7 +107,7 @@ export class D2Visualizer {
     height: 5,
     rows: [
       ['zTV6mfXXO8I', '2018', '4754.0'],
-      ['zTV6mfXXO8I', '2019', '8467.0'],
+      ['zTV6mfXXO8I', '2019', '200000.0'],
       ['zTV6mfXXO8I', '2020', '13225.0'],
       ['zTV6mfXXO8I', '2021', '16241.0'],
       ['zTV6mfXXO8I', '2022', '9780.0'],
@@ -442,9 +442,9 @@ export class D2Visualizer {
   }
 
   /**
-   * 
-   * @param organisationUnitGroups 
-   * @returns 
+   *
+   * @param organisationUnitGroups
+   * @returns
    */
   setOrganisationUnitGroups(organisationUnitGroups: OrganisationUnitGroup[]) {
     this.organisationUnitGroups = organisationUnitGroups;
@@ -452,8 +452,8 @@ export class D2Visualizer {
   }
 
   /**
-   * 
-   * @returns 
+   *
+   * @returns
    */
   getOrganisationUnitGroups(): OrganisationUnitGroup[] {
     return this.organisationUnitGroups;
