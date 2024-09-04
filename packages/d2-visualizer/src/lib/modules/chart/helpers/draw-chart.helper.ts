@@ -105,7 +105,7 @@ export const getCascadeVisualizationPayload = (
 
       return {
         ...dataPoint,
-        color: actualValue > targetValue ? 'red' : dataPoint.color || null, // if actual value is greater than target value, color will be red
+        color: actualValue > targetValue ? 'darkred' : dataPoint.color || null, // if actual value is greater than target value, color will be red
       };
     });
 
@@ -138,11 +138,11 @@ export const getCascadeVisualizationPayload = (
           dataLabels: {
             enabled: false,
             inside: true,
-          },
+          }, // data labels will be hidden
           stacking: 'normal',
           grouping: false,
           shadow: false,
-          borderWidth: 0,
+          borderWidth: 0, 
           enableMouseTracking: false,
           allowPointSelect: true,
           verticalAlign: 'top',
@@ -150,6 +150,7 @@ export const getCascadeVisualizationPayload = (
         },
       },
       series: [targetSeries, achievementSeries],
+      // series: [achievementSeries,targetSeries ],
     };
   } else {
     return chartObject;

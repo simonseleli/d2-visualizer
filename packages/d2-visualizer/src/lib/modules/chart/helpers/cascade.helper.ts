@@ -10,7 +10,7 @@ export const getTargetSeriesData = (dataStoreConfig: DataStoreConfig) => {
             dataStoreConfig && dataStoreConfig.categories
                 ? dataStoreConfig.categories
                 : []
-        )
+        ),
     );
 
     return {
